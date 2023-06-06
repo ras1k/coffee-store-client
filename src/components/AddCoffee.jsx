@@ -1,4 +1,5 @@
 import React from 'react';
+import swal from 'sweetalert2/dist/sweetalert2.all.min.js';
 
 const AddCoffee = () => {
     const addCoffee = event => {
@@ -23,7 +24,15 @@ const AddCoffee = () => {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
+            console.log(data);
+            if(data.insertedId) {
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'User Added Successfully',
+                    icon: 'success',
+                    confirmButtonText: 'Cool'
+                  })
+            }
         })
         
     }
@@ -45,7 +54,7 @@ const AddCoffee = () => {
                             <span className="label-text">Available Quantity</span>
                         </label>
                         <label className="input-group">
-                            <input type="text" name='quantity' placeholder="Available Quantity" className="input input-bordered w-full" />
+                            <input type="number" name='quantity' placeholder="Available Quantity" className="input input-bordered w-full" />
                         </label>
                     </div>
                 </div>
