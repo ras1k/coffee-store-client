@@ -1,10 +1,11 @@
 import React from 'react';
-import swal from 'sweetalert2/dist/sweetalert2.all.min.js';
+import Swal from 'sweetalert2/dist/sweetalert2.all.min.js';
 
 const AddCoffee = () => {
-    const addCoffee = event => {
+
+    const handleAddCoffee = event => {
         event.preventDefault();
-        const form =event.target;
+        const form = event.target;
         const name = form.name.value;
         const quantity = form.quantity.value;
         const supplier = form.supplier.value;
@@ -12,34 +13,35 @@ const AddCoffee = () => {
         const category = form.category.value;
         const details = form.details.value;
         const photo = form.photo.value;
-        const newCoffee = {name, quantity, supplier, taste, category, details, photo};
+        const newCoffee = { name, quantity, supplier, taste, category, details, photo };
         console.log(newCoffee)
 
         fetch('http://localhost:5000/coffee', {
             method: 'POST',
             headers: {
-                'content-type' : 'application/json'
+                'content-type': 'application/json'
             },
-            body:JSON.stringify(newCoffee)
+            body: JSON.stringify(newCoffee)
         })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-            if(data.insertedId) {
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'User Added Successfully',
-                    icon: 'success',
-                    confirmButtonText: 'Cool'
-                  })
-            }
-        })
-        
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.insertedId) {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Coffee Added Successfully',
+                        icon: 'success',
+                        confirmButtonText: 'Cool'
+                    })
+                    form.reset()
+                }
+            })
+
     }
     return (
         <div className=''>
             <h2 className='text-3xl text-center mb-5 font-extrabold'>Add A Coffee</h2>
-            <form onSubmit={addCoffee} className='bg-[#F4F3F0]'>
+            <form onSubmit={handleAddCoffee} className='bg-[#F4F3F0]'>
                 <div className='md:flex ms-20 me-20 p-5'>
                     <div className="form-control md:w-1/2">
                         <label className="label">
